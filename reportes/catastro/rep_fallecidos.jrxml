@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rep_fallecidos" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c5708a71-8364-42c2-8e3a-db4b587105e6">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="logoes" class="java.lang.String"/>
+	<parameter name="logoal" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="87" splitType="Stretch">
+			<image>
+				<reportElement x="492" y="0" width="80" height="80" uuid="cab81199-2f03-4bb0-ae5f-db69e24c7e9b"/>
+				<imageExpression><![CDATA[$P{logoal}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="0" y="0" width="80" height="80" uuid="79e7b8b5-3f81-49ef-a3c0-a0a2786abf25"/>
+				<imageExpression><![CDATA[$P{logoes}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="152" y="11" width="248" height="19" uuid="d3ae921c-bea5-4a20-9f63-079685125558"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[CATASTRO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="91" y="26" width="386" height="20" forecolor="#0000FF" uuid="21db1d40-7b96-4aa2-be17-0b9e4976871d"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[ALCALDIA MUNICIPAL VILLA DE SAN CRISTOBAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="150" y="46" width="250" height="20" uuid="0341b222-1a48-49eb-9d3e-a0d0fc4fc877"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[DEPARTAMENTO DE CUSCATLAN, TEL. 23797131]]></text>
+			</staticText>
+			<line>
+				<reportElement x="101" y="66" width="376" height="1" forecolor="#0000FF" uuid="a1c1dba2-2a54-4165-a5bc-dc90cdae5ee1"/>
+			</line>
+			<line>
+				<reportElement x="101" y="76" width="376" height="1" forecolor="#FF0000" uuid="fa395044-5868-4815-b8fa-fb49064abc9b"/>
+			</line>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="42" splitType="Stretch">
+			<staticText>
+				<reportElement x="191" y="11" width="188" height="20" uuid="a0dc5a8b-5307-4adb-9b74-5f565d31a102"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Reporte de Fallecidos]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="27" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="42" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
