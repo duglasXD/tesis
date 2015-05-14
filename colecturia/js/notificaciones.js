@@ -57,7 +57,6 @@ function muestraAlerta(dataJson){
 			}
 		})).get().click(function(e){
 			if ($('.ui-pnotify-closer, .ui-pnotify-sticker, .ui-pnotify-closer*, ui-pnotify-sticker*').is(e.target))return;
-			alert("hiciste clic");
 			generaRecibo(dataJson[i].id_not);
 		});
 	}
