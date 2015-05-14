@@ -6,12 +6,12 @@
 	<link rel="stylesheet" href="./../css/bootstrap.css">
 	<link rel="stylesheet" href="./../css/retoques.css">
 	<script src="./../js/jquery.min-1.7.1-google.js"></script>
-	<script src="./../js/bootstrap-2.0.2.js"></script>
+	<script src="./../js/bootstrap.js"></script>
 	<script type="text/javascript">
 	$(function(){
+		//Funcion para cargar el mapa dentro del div
 		document.getElementById('centro').height='500px';
 		document.getElementById('centro').contentDocument.location = $("#ver").attr("href");
-
 	});
 	</script>
 </head>
@@ -76,6 +76,18 @@
 								<li><a target="centro" href="reportes.php?casorep=1" onclick="getElementById('centro').height='1000px'"><i class="icon-list-alt"></i> Contribuyentes</a></li>
 								<li><a target="centro" href="reportes.php?casorep=2" onclick="getElementById('centro').height='1000px'"><i class="icon-list-alt"></i> Negocios</a></li>
 								<li><a target="centro" href="reportes.php?casorep=3" onclick="getElementById('centro').height='1000px'"><i class="icon-list-alt"></i> Inmuebles</a></li>
+							</ul>
+						</li>
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Mapa<b class="caret"></b></a>
+							<ul class="dropdown-menu">
+								<li class="dropdown-submenu">
+									<a href="#">Zonas</a>
+									<ul class="dropdown-menu">
+										<li><a href="#" onclick="dibujaZona()">Añadir zona</a></li>
+										<li><a href="#">Eliminar zona</a></li>
+									</ul>
+								</li>
 							</ul>
 						</li>
 						

@@ -1,43 +1,39 @@
-function initialize() {
+var map="";
+var creator ="";
+$(function(){//funcion que se ejecuta aL cargar el DOM
+  cargarMapa();
+
+});
+
+function cargarMapa() {
+  //establece las opciones y crea el mapa
 	var mapOptions = {
-		center: new google.maps.LatLng(13.7004458,-88.9004982),
+		center: new google.maps.LatLng(13.7004458,-88.9004982),//Coordenadas de San Cristobal
 		zoom: 16,
     mapTypeId: google.maps.MapTypeId.SATELLITE
 	};
-	var map = new google.maps.Map(document.getElementById("mapa"),mapOptions);
-  ///EVENTO
+	map = new google.maps.Map(document.getElementById("mapa"),mapOptions);
+    
+  //EVENTO CLICK
   google.maps.event.addListener(map,'click',function(e){
-    placeMarker(e.latLng,map);
+    //poner marcador
+    //ponerMarcador(e.latLng,map);
+    
   });
+  
 }
 
-function placeMarker(position,map){
+function ponerMarcador(position,map){
   var marker = new google.maps.Marker({
     position: position,
     map: map
   });
-  map.panTo(position);
+  //map.panTo(position);//centra el mapa de acuerdo al marcador puesto
 }
-//INICIA EL MAPA
-google.maps.event.addDomListener(window,"load",initialize);
 
-
-
-
-
-
-
-
-
-
-
-////////////MOSTRAR MAPA BASICO/////////////////
-/*function initialize() {
-  var mapOptions = {
-    center: new google.maps.LatLng(13.7004458,-88.9004982),
-    zoom: 16
-  };
-  var map = new google.maps.Map(document.getElementById("mapa"),mapOptions);
+function addP(){
+  creator = new PolygonCreator(map);
 }
-google.maps.event.addDomListener(window,"load",initialize);*/
-///////////////////////////////////////////////////////
+function remP(){
+  creator.destroy();
+}
