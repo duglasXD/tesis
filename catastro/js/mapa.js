@@ -17,16 +17,18 @@ function cargarMapa() {
   //EVENTO CLICK
   google.maps.event.addListener(map,'click',function(e){
     //poner marcador
-    //ponerMarcador(e.latLng,map);
+    ponerMarcador(e.latLng,map);
     
   });
   
 }
 
 function ponerMarcador(position,map){
+  var icono="../img/icon-neg.png";
   var marker = new google.maps.Marker({
     position: position,
-    map: map
+    map: map,
+    icon:icono
   });
   //map.panTo(position);//centra el mapa de acuerdo al marcador puesto
 }
