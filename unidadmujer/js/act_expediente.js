@@ -43,7 +43,7 @@ $(function(){
 
 	$("input[name='rec_ayu']").change(function(){
 		element=document.getElementById("rec_ayu_ong");
-		if ($(this).val()=="t") {
+		if ($(this).val()=="Si") {
 			element.style.display="block";
 		}else{
 			element.style.display="none";
@@ -51,7 +51,7 @@ $(function(){
 	});
 	$("input[name='suf_mal']").change(function(){
 		element=document.getElementById("divMalqui");
-		if ($(this).val()=="t") {
+		if ($(this).val()=="Si") {
 			element.style.display="block";
 		}else{
 			element.style.display="none";
@@ -59,7 +59,7 @@ $(function(){
 	});
 	$("input[name='suf_abu_sex']").change(function(){
 		element=document.getElementById("divAbusex");
-		if ($(this).val()=="t") {
+		if ($(this).val()=="Si") {
 			element.style.display="block";
 		}else{
 			element.style.display="none";
@@ -67,7 +67,7 @@ $(function(){
 	});
 	$("input[name='ame_rup']").change(function(){
 		element=document.getElementById("divAmerup");
-		if ($(this).val()=="t") {
+		if ($(this).val()=="Si") {
 			element.style.display="block";
 		}else{
 			element.style.display="none";
@@ -75,7 +75,7 @@ $(function(){
 	});
 	$("input[name='mal_men']").change(function(){
 		element=document.getElementById("divTipmal");
-		if ($(this).val()=="t") {
+		if ($(this).val()=="Si") {
 			element.style.display="block";
 		}else{
 			element.style.display="none";
@@ -120,33 +120,33 @@ function cargaDatos(codigo){
 					$("input[name='oci_lec[]']").each(function(){if($(this).val()==miArray[j]){$(this).attr("checked",true);}});
 				}
 				$("#oci_otr").val(dataJson[i].oci_otr);
-				if (dataJson[i].tra_rem=="t"){$("#tra_remS").prop("checked",true);}else{$("#tra_remN").prop("checked",true);}
+				if (dataJson[i].tra_rem=="Si"){$("#tra_remS").prop("checked",true);}else{$("#tra_remN").prop("checked",true);}
 				$("#tip_tra").val(dataJson[i].tip_tra);
-				if (dataJson[i].baj_con=="t"){$("#baj_conS").prop("checked",true);}else{$("#baj_conN").prop("checked",true);}
+				if (dataJson[i].baj_con=="Si"){$("#baj_conS").prop("checked",true);}else{$("#baj_conN").prop("checked",true);}
 				$("#jor_tra").val(dataJson[i].jor_tra);
 				$("#ing_med_men").val(dataJson[i].ing_med_men);
 				$("#otr_tip_ing option[value='"+dataJson[i].otr_tip_ing+"']").attr("selected",true);
 				$("#rec_fin option[value='"+dataJson[i].rec_fin+"']").attr("selected",true);
-				if (dataJson[i].dep_eco_agr=="t"){$("#dep_eco_agrS").prop("checked",true);}else{$("#dep_eco_agrN").prop("checked",true);}
-				if (dataJson[i].rec_ayu=="t"){$("#rec_ayuS").prop("checked",true);}else{$("#rec_ayuN").prop("checked",true);}
+				if (dataJson[i].dep_eco_agr=="Si"){$("#dep_eco_agrS").prop("checked",true);}else{$("#dep_eco_agrN").prop("checked",true);}
+				if (dataJson[i].rec_ayu=="Si"){$("#rec_ayuS").prop("checked",true);}else{$("#rec_ayuN").prop("checked",true);}
 				$("#rec_ayu_ong").val(dataJson[i].rec_ayu_ong);
-				if (dataJson[i].med_cab=="t"){$("#med_cabS").prop("checked",true);}else{$("#med_cabN").prop("checked",true);}
+				if (dataJson[i].med_cab=="Si"){$("#med_cabS").prop("checked",true);}else{$("#med_cabN").prop("checked",true);}
 				$("#acu_amb option[value='"+dataJson[i].acu_amb+"']").attr("selected",true);
 				$("#tra_con").val(dataJson[i].tra_con);
 				if (dataJson[i].com=="Regular"){$("#comS").prop("checked",true);}else{$("#comN").prop("checked",true);}
 				$("#con_agr option[value='"+dataJson[i].con_agr+"']").attr("selected",true);
 				$("#dur_rel_sen").val(dataJson[i].dur_rel_sen);
-				if (dataJson[i].pri_con=="t"){$("#pri_conS").prop("checked",true);}else{$("#pri_conN").prop("checked",true);}
-				if (dataJson[i].suf_mal=="t"){$("#suf_malS").prop("checked",true);}else{$("#suf_malN").prop("checked",true);}
+				if (dataJson[i].pri_con=="Si"){$("#pri_conS").prop("checked",true);}else{$("#pri_conN").prop("checked",true);}
+				if (dataJson[i].suf_mal=="Si"){$("#suf_malS").prop("checked",true);}else{$("#suf_malN").prop("checked",true);}
 				$("#mal_qui").val(dataJson[i].mal_qui);
-				if (dataJson[i].suf_abu_sex=="t"){$("#suf_abu_sexS").prop("checked",true);}else{$("#suf_abu_sexN").prop("checked",true);}
+				if (dataJson[i].suf_abu_sex=="Si"){$("#suf_abu_sexS").prop("checked",true);}else{$("#suf_abu_sexN").prop("checked",true);}
 				$("#abu_qui_sex").val(dataJson[i].abu_qui_sex);
-				if (dataJson[i].tra_sep=="t"){$("#tra_sepS").prop("checked",true);}else{$("#tra_sepN").prop("checked",true);}
+				if (dataJson[i].tra_sep=="Si"){$("#tra_sepS").prop("checked",true);}else{$("#tra_sepN").prop("checked",true);}
 				$("#med_cau").val(dataJson[i].med_cau);
-				if (dataJson[i].rup_ant=="t"){$("#rup_antS").prop("checked",true);}else{$("#rup_antN").prop("checked",true);}
+				if (dataJson[i].rup_ant=="Si"){$("#rup_antS").prop("checked",true);}else{$("#rup_antN").prop("checked",true);}
 				$("#dur_mal").val(dataJson[i].dur_mal);
-				if (dataJson[i].ame_rup=="t"){$("#ame_rupS").prop("checked",true);}else{$("#ame_rupN").prop("checked",true);}
-				if (dataJson[i].mal_men=="t"){$("#mal_menS").prop("checked",true);}else{$("#mal_menN").prop("checked",true);}
+				if (dataJson[i].ame_rup=="Si"){$("#ame_rupS").prop("checked",true);}else{$("#ame_rupN").prop("checked",true);}
+				if (dataJson[i].mal_men=="Si"){$("#mal_menS").prop("checked",true);}else{$("#mal_menN").prop("checked",true);}
 				$("#tip_mal_men").val(dataJson[i].tip_mal_men);
 				$("#num_hij").val(dataJson[i].num_hij);
 				miArray=dataJson[i].per_hog.split('|');
@@ -156,13 +156,13 @@ function cargaDatos(codigo){
 				if (dataJson[i].apo_eco_fam=="de la familia de la mujer"){$("#apo_eco_famS").prop("checked",true);}else{$("#apo_eco_famN").prop("checked",true);}
 				if (dataJson[i].apo_afe_fam=="de la familia de la mujer"){$("#apo_afe_famS").prop("checked",true);}else{$("#apo_afe_famN").prop("checked",true);}
 				if (dataJson[i].apo_cri=="de la familia de la mujer"){$("#apo_criS").prop("checked",true);}else{$("#apo_criN").prop("checked",true);}
-				if (dataJson[i].con_sit=="t"){$("#con_sitS").prop("checked",true);}else{$("#con_sitN").prop("checked",true);}
-				if (dataJson[i].con_apo=="t"){$("#con_apoS").prop("checked",true);}else{$("#con_apoN").prop("checked",true);}
-				if (dataJson[i].man_rel_agr=="t"){$("#man_rel_agrS").prop("checked",true);}else{$("#man_rel_agrN").prop("checked",true);}
+				if (dataJson[i].con_sit=="Si"){$("#con_sitS").prop("checked",true);}else{$("#con_sitN").prop("checked",true);}
+				if (dataJson[i].con_apo=="Si"){$("#con_apoS").prop("checked",true);}else{$("#con_apoN").prop("checked",true);}
+				if (dataJson[i].man_rel_agr=="Si"){$("#man_rel_agrS").prop("checked",true);}else{$("#man_rel_agrN").prop("checked",true);}
 				if (dataJson[i].apo_efe_ami=="de amigos propios"){$("#apo_efe_amiS").prop("checked",true);}else{$("#apo_efe_amiN").prop("checked",true);}
 				if (dataJson[i].apo_afe_ami=="de amigos propios"){$("#apo_afe_amiS").prop("checked",true);}else{$("#apo_afe_amiN").prop("checked",true);}
-				if (dataJson[i].ent_con_agr=="t"){$("#ent_con_agrS").prop("checked",true);}else{$("#ent_con_agrN").prop("checked",true);}
-				if (dataJson[i].ent_apo_agr=="t"){$("#ent_apo_agrS").prop("checked",true);}else{$("#ent_apo_agrN").prop("checked",true);}
+				if (dataJson[i].ent_con_agr=="Si"){$("#ent_con_agrS").prop("checked",true);}else{$("#ent_con_agrN").prop("checked",true);}
+				if (dataJson[i].ent_apo_agr=="Si"){$("#ent_apo_agrS").prop("checked",true);}else{$("#ent_apo_agrN").prop("checked",true);}
 				miArray=dataJson[i].car_agr.split('|');
 				for (j=0;j<miArray.length;j++) {
 					$("input[name='car_agr[]']").each(function(){if($(this).val()==miArray[j]){$(this).attr("checked",true);}});

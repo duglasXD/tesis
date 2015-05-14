@@ -12,23 +12,9 @@ $(function(){
 			    datos=[];
 
 			    for(var i in dataJson){
-					var si=dataJson[i].label
-					var no=dataJson[i].label
-			    if(si=="t" || no=="f") {		         
-				if(si=="t") {
-					dataJson[i].label="Si";
-datos.push([dataJson[i].label, dataJson[i].value]);
-			}
-			else	if(no=="f") {
-					dataJson[i].label="No";
-datos.push([dataJson[i].label, dataJson[i].value]);
-			}	
-		}
-			else{
-			       datos.push([dataJson[i].label, dataJson[i].value]);
-}
-			    }
-			    //Se crea el titulo del grafico
+		       		datos.push("['"+dataJson[i].label+"'", dataJson[i].value+']');
+				}
+		
 			    var titulo="";
 			    if($("input[name='radBus']:checked").val()=="sx"){
 			    	titulo="Estadistica por genero de las personas con expediente";
@@ -57,8 +43,8 @@ datos.push([dataJson[i].label, dataJson[i].value]);
 			        if($("input[name='radBus']:checked").val()=="as"){
 			    	titulo="Estadisticas de abuso sexual";
 			    }
-			    
-			    muestraGrafica(datos,titulo);
+			    dato='['+datos+']';
+			    muestraGrafica(dato,titulo);
 			}
 		});
 	});
@@ -67,10 +53,12 @@ datos.push([dataJson[i].label, dataJson[i].value]);
 
 
 function muestraGrafica(datos,titulo){
-	//jQuery.jqplot.config.enablePlugins = true;
+	
+	alert(datos);
+	jQuery.jqplot.config.enablePlugins = true;
 	e=document.getElementById('migrafica');
 	e.innerHTML="";
-      plot7 = jQuery.jqplot('migrafica',[datos], 
+      plot7 = $.jqplot('migrafica',[[datos]], 
         {
           title: titulo, 
           seriesDefaults: {shadow: true, renderer: jQuery.jqplot.PieRenderer, rendererOptions: { showDataLabels: true } }, 

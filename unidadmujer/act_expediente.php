@@ -193,8 +193,8 @@
 					<div class="control-group span5" style="width: 350px;">
 						<label class="control-label" style="width:150px;">Trabajo remunerado</label>
 						<div class="controls" style="margin-left:150px;">
-							<label class="radio inline"><input type="radio" id="tra_rem" name="tra_rem" value="t">Si</label>
-							<label class="radio inline"><input type="radio" id="tra_rem" name="tra_rem" value="f" checked>No</label>
+							<label class="radio inline"><input type="radio" id="tra_rem" name="tra_rem" value="Si">Si</label>
+							<label class="radio inline"><input type="radio" id="tra_rem" name="tra_rem" value="No" checked>No</label>
 						</div>
 					</div>
 					<div class="control-group span4">
@@ -206,8 +206,8 @@
 					<div class="control-group span5" style="width: 350px;">
 						<label class="control-label" style="width:150px;">Contrato</label>
 						<div class="controls" style="margin-left:150px;">
-							<label class="radio inline"><input type="radio" id="baj_con" name="baj_con" value="t">Si</label>
-							<label class="radio inline"><input type="radio" id="baj_con" name="baj_con" value="f" checked>No</label>
+							<label class="radio inline"><input type="radio" id="baj_con" name="baj_con" value="Si">Si</label>
+							<label class="radio inline"><input type="radio" id="baj_con" name="baj_con" value="No" checked>No</label>
 						</div>
 					</div>
 					<div class="control-group span4">
@@ -244,15 +244,15 @@
 					<div class="control-group span5" style="width: 350px;">
 						<label class="control-label" style="width:150px;">Dependencia económica con el presunto agresor</label>
 						<div class="controls" style="margin-left:150px;">
-							<label class="radio inline"><input type="radio" id="dep_eco_agr" name="dep_eco_agr" value="t">Si</label>
-							<label class="radio inline"><input type="radio" id="dep_eco_agr" name="dep_eco_agr" value="f" checked>No</label>
+							<label class="radio inline"><input type="radio" id="dep_eco_agr" name="dep_eco_agr" value="Si">Si</label>
+							<label class="radio inline"><input type="radio" id="dep_eco_agr" name="dep_eco_agr" value="No" checked>No</label>
 						</div>
 					</div>
 					<div class="control-group span4">
 						<label class="control-label" style="width:150px;">Recibe ayuda de ONGs, Asociaciones, Caritas, otras</label>
 						<div class="controls" style="margin-left:150px;">
-							<label class="radio inline"><input type="radio" id="rec_ayu" name="rec_ayu" value="t">Si</label>
-							<label class="radio inline"><input type="radio" id="rec_ayu" name="rec_ayu" value="f" checked>No</label>
+							<label class="radio inline"><input type="radio" id="rec_ayu" name="rec_ayu" value="Si">Si</label>
+							<label class="radio inline"><input type="radio" id="rec_ayu" name="rec_ayu" value="No" checked>No</label>
 							<input type="text" class="input-large" placeholder="Escriba el nombre de la institución" name="rec_ayu_ong" id="rec_ayu_ong" style="display:none;">
 						</div>
 					</div>			
@@ -263,8 +263,8 @@
 					<div class="control-group">
 						<label class="control-label">M&eacute;dico de cabecera</label>
 						<div class="controls">
-							<label class="radio inline"><input type="radio" id="med_cab" name="med_cab" value="t">Si</label>
-							<label class="radio inline"><input type="radio" id="med_cab" name="med_cab" value="f" checked>No</label>
+							<label class="radio inline"><input type="radio" id="med_cab" name="med_cab" value="Si">Si</label>
+							<label class="radio inline"><input type="radio" id="med_cab" name="med_cab" value="No" checked>No</label>
 						</div>
 					</div>
 
@@ -311,8 +311,8 @@
 					<div class="control-group">
 						<label class="control-label">Es primera convivencia</label>
 						<div class="controls">
-							<label class="radio inline"><input type="radio" id="pri_con" name="pri_con" value="t">Si</label>
-							<label class="radio inline"><input type="radio" id="pri_con" name="pri_con" value="f" checked>No</label>
+							<label class="radio inline"><input type="radio" id="pri_con" name="pri_con" value="Si">Si</label>
+							<label class="radio inline"><input type="radio" id="pri_con" name="pri_con" value="No" checked>No</label>
 						</div>
 					</div>
 
@@ -326,8 +326,8 @@
 					<div class="control-group span5" style="width: 350px;">
 						<label class="control-label" style="width:150px;">Ha sufrido maltratos</label>
 						<div class="controls" style="margin-left:150px;">
-							<label class="radio inline"><input type="radio" id="suf_mal" name="suf_mal" value="t">Si</label>
-							<label class="radio inline"><input type="radio" id="suf_mal" name="suf_mal" value="f" checked>No</label>
+							<label class="radio inline"><input type="radio" id="suf_mal" name="suf_mal" value="Si">Si</label>
+							<label class="radio inline"><input type="radio" id="suf_mal" name="suf_mal" value="No" checked>No</label>
 						</div>
 					</div>
 					<div class="control-group span4" id="divMalqui" style="display:none;">
@@ -339,8 +339,8 @@
 					<div class="control-group span5" style="width: 350px;">
 						<label class="control-label" style="width:150px;">Ha sufrido abuso sexual</label>
 						<div class="controls" style="margin-left:150px;">
-							<label class="radio inline"><input type="radio" name="suf_abu_sex" id="suf_abu_sex" value="t">Si</label>
-							<label class="radio inline"><input type="radio" name="suf_abu_sex" id="suf_abu_sex" value="f" checked>No</label>
+							<label class="radio inline"><input type="radio" name="suf_abu_sex" id="suf_abu_sex" value="Si">Si</label>
+							<label class="radio inline"><input type="radio" name="suf_abu_sex" id="suf_abu_sex" value="No" checked>No</label>
 						</div>
 					</div>
 					<div class="control-group span4" id="divAbusex" style="display:none;">
@@ -371,8 +371,8 @@
 					<div class="control-group span5">
 						<label class="control-label" style="width:150px;">Ha iniciado trámites de separación</label>
 						<div class="controls" style="margin-left:150px;">
-							<label class="radio inline"><input type="radio" id="tra_sep" name="tra_sep" value="t">Si</label>
-							<label class="radio inline"><input type="radio" id="tra_sep" name="tra_sep" value="f" checked>No</label>
+							<label class="radio inline"><input type="radio" id="tra_sep" name="tra_sep" value="Si">Si</label>
+							<label class="radio inline"><input type="radio" id="tra_sep" name="tra_sep" value="No" checked>No</label>
 						</div>
 					</div>
 					
@@ -386,8 +386,8 @@
 					<div class="control-group span5">
 						<label class="control-label" style="width:150px;">Se han dado rupturas anteriores</label>
 						<div class="controls" style="margin-left:150px;">
-							<label class="radio inline"><input type="radio" id="rup_ant" name="rup_ant" value="t">Si</label>
-							<label class="radio inline"><input type="radio" id="rup_ant" name="rup_ant" value="f" checked>No</label>
+							<label class="radio inline"><input type="radio" id="rup_ant" name="rup_ant" value="Si">Si</label>
+							<label class="radio inline"><input type="radio" id="rup_ant" name="rup_ant" value="No" checked>No</label>
 						</div>
 					</div>
 
@@ -410,8 +410,8 @@
 					<div class="control-group span4">
 						<label class="control-label" for="ame_rup" style="width:150px;">Ha habido amenaza de ruptura</label>
 						<div class="controls" style="margin-left:150px;">
-							<label class="radio inline"><input type="radio" id="ame_rup" name="ame_rup" value="t">Si</label>
-							<label class="radio inline"><input type="radio" id="ame_rup" name="ame_rup" value="f" checked>No</label>
+							<label class="radio inline"><input type="radio" id="ame_rup" name="ame_rup" value="Si">Si</label>
+							<label class="radio inline"><input type="radio" id="ame_rup" name="ame_rup" value="No" checked>No</label>
 						</div>
 					</div>
 
@@ -439,8 +439,8 @@
 					<div class="control-group span5">
 						<label class="control-label" style="width:150px;">El agresor maltrata a los menores</label>
 						<div class="controls" style="margin-left:150px;">
-							<label class="radio inline"><input type="radio" id="mal_men" name="mal_men" value="t">Si</label>
-							<label class="radio inline"><input type="radio" id="mal_men" name="mal_men" value="f" checked>No</label>
+							<label class="radio inline"><input type="radio" id="mal_men" name="mal_men" value="Si">Si</label>
+							<label class="radio inline"><input type="radio" id="mal_men" name="mal_men" value="No" checked>No</label>
 						</div>
 					</div>
 
@@ -494,22 +494,22 @@
 					<div class="control-group span5" style="margin-left: 0px;">
 						<label class="control-label">Su familia conoce su situación</label>
 						<div class="controls">
-							<label class="radio inline"><input type="radio" id="con_sit" name="con_sit" value="t">Si</label>
-							<label class="radio inline"><input type="radio" id="con_sit" name="con_sit" value="f" checked>No</label>
+							<label class="radio inline"><input type="radio" id="con_sit" name="con_sit" value="Si">Si</label>
+							<label class="radio inline"><input type="radio" id="con_sit" name="con_sit" value="No" checked>No</label>
 						</div>
 					</div>
 					<div class="control-group span4">
 						<label class="control-label" for="">Su familia le ofrece apoyo si termina la relación</label>
 						<div class="controls">
-							<label class="radio inline"><input type="radio" id="con_apo" name="con_apo" value="t">Si</label>
-							<label class="radio inline"><input type="radio" id="con_apo" name="con_apo" value="f" checked>No</label>
+							<label class="radio inline"><input type="radio" id="con_apo" name="con_apo" value="Si">Si</label>
+							<label class="radio inline"><input type="radio" id="con_apo" name="con_apo" value="No" checked>No</label>
 						</div>
 					</div>
 					<div class="control-group span5" style="margin-left: 0px;">
 						<label class="control-label" for="">Mantiene alguna relaci&oacute;n con el agresor</label>
 						<div class="controls">
-							<label class="radio inline"><input type="radio" id="man_rel_agr" name="man_rel_agr" value="t">Si</label>
-							<label class="radio inline"><input type="radio" id="man_rel_agr" name="man_rel_agr" value="f" checked>No</label>
+							<label class="radio inline"><input type="radio" id="man_rel_agr" name="man_rel_agr" value="Si">Si</label>
+							<label class="radio inline"><input type="radio" id="man_rel_agr" name="man_rel_agr" value="No" checked>No</label>
 						</div>
 					</div>
 					<!-- <p class="pull-right"><a data-toggle="tab" href="#relSoc" class="btn">Guardar y Continuar  &rarr;</a></p> -->
@@ -534,15 +534,15 @@
 					<div class="control-group">
 						<label class="control-label" for="">Su entorno conoce las agresiones</label>
 						<div class="controls">
-							<label class="radio inline"><input type="radio" id="ent_con_agr" name="ent_con_agr" value="t">Si</label>
-							<label class="radio inline"><input type="radio" id="ent_con_agr" name="ent_con_agr" value="f" checked>No</label>
+							<label class="radio inline"><input type="radio" id="ent_con_agr" name="ent_con_agr" value="Si">Si</label>
+							<label class="radio inline"><input type="radio" id="ent_con_agr" name="ent_con_agr" value="No" checked>No</label>
 						</div>
 					</div>
 					<div class="control-group">
 						<label class="control-label" for="">Su entorno le ofrece apoyo si termina la relación</label>
 						<div class="controls">
-							<label class="radio inline"><input type="radio" id="ent_apo_agr" name="ent_apo_agr" value="t">Si</label>
-							<label class="radio inline"><input type="radio" id="ent_apo_agr" name="ent_apo_agr" value="f" checked>No</label>
+							<label class="radio inline"><input type="radio" id="ent_apo_agr" name="ent_apo_agr" value="Si">Si</label>
+							<label class="radio inline"><input type="radio" id="ent_apo_agr" name="ent_apo_agr" value="No" checked>No</label>
 						</div>
 					</div>
 					<!-- <p class="pull-right"><a data-toggle="tab" href="#sitGen" class="btn">Guardar y Continuar  &rarr;</a></p> -->
@@ -575,7 +575,7 @@
 						<label class="control-label" for="sex_agr" style="width:100px;">Sexo</label>
 						<div class="controls" style="margin-left:100px;">
 							<label class="radio inline"><input type="radio" id="sex_agrM" name="sex_agr" value="M">Masculino</label>
-							<label class="radio inline"><input type="radio" id="sex_agrF" name="sex_agr" value="F" checked>Femenino</label>
+							<label class="radio inline"><input type="radio" id="sex_agrF" name="sex_agr" value="No" checked>Femenino</label>
 						</div>
 					</div>
 					<div class="control-group span5">
