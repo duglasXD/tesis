@@ -2,7 +2,7 @@
     require('pgconex.php');
     $con = new PgConex();
     $con->conectar();
-    switch ($_POST["accion"]) {
+    switch ($_POST["actionButton"]) {
         case 'Export':
             $backupname = "bkp/Backup_db_alcaldia".date('d.m.Y.G.i.s').".sql";
             $salida = fopen($backupname,"w");
