@@ -1,71 +1,44 @@
 <?php
-    $action  = $_POST["actionButton"];
-    $ficheiro=$_FILES["respaldo"]["name"];
-    switch ($action){
-        case "Import":
-            $dbconn = pg_pconnect("host=localhost port=5432 dbname=db_alcaldia user=postgres password=root"); //connection string
-            if (!$dbconn) {
-                echo "No se puede conectar con la base de datos, restauracion abortada.\n";
-                exit;
-            }
-            $back = fopen($ficheiro,"r");
-            $contents = fread($back, filesize($ficheiro));
-            $res = pg_query(utf8_encode($contents));
-            echo "Restauracion exitosa, se restauraron todos los datos";
-            fclose($back);
-            break;
-        case "Export":
-            $dbname = "bkp/Backup_db_alcaldia".date('d.m.Y.G.i.s').".sql"; //database name
-            $dbconn = pg_pconnect("host=localhost port=5432 dbname=db_alcaldia user=postgres password=root"); //connectionstring
-            if (!$dbconn) {
-                echo "No se puede conectar.\n";
-                exit;
-            }
-            $back = fopen($dbname,"w");
-            $res = pg_query("select relname as tablename from pg_class where relkind in ('r') and relname not like 'pg_%' and relname not like 'sql_%' order by tablename");
-            $str0="--
+    require('pgconex.php');
+    $con = new PgConex();
+    $con->conectar();
+    switch ($_POST["accion"]) {
+        case 'Export':
+            $backupname = "bkp/Backup_db_alcaldia".date('d.m.Y.G.i.s').".sql";
+            $salida = fopen($backupname,"w");
+            ///////////////////////////////////////////////////////////////////////PARAMETROS ESTATICOS INICIALES
+            fwrite($salida,"--
 -- PostgreSQL database dump
 --
-
 SET statement_timeout = 0;
 SET lock_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
 SET check_function_bodies = false;
 SET client_min_messages = warning;
-
 --
 -- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
 --
-
 CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
-
-
 --
 -- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
 --
-
 COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
-
-
 SET search_path = public, pg_catalog;
-
 SET default_tablespace = '';
-
 SET default_with_oids = false;
-
-";
-$str="";
-$str1="";
-            while($row = pg_fetch_row($res)){
-                $table = $row[0];
-                $str1 .= "--\n";
-                $str1 .= "-- Estrutura de tabla '$table'";
-                $str1 .= "\n--";
-                $str1 .= "\nDROP TABLE IF EXISTS $table CASCADE;";
-                $str1 .= "\nCREATE TABLE $table (";
-                $res1 = pg_query("
-                    SELECT  attnum,attname,typname,atttypmod-4,attnotnull,atthasdef,adsrc AS def
+");
+            $con->consulta("SELECT relname AS tabla FROM pg_class WHERE relkind IN ('r') AND relname not LIKE 'pg_%' AND relname not LIKE 'sql_%' ORDER BY tabla");
+            $tablas=$con->getResultado();
+            ///////////////////////////////////////////////////////////////////////ESTRUCTURA DE TABLA
+            while($fila=pg_fetch_array($tablas, null, PGSQL_ASSOC)){
+                $infotabla="\n--
+-- Estrutura de tabla '".$fila['tabla']."'
+--
+DROP TABLE IF EXISTS ".$fila['tabla']." CASCADE;
+CREATE TABLE ".$fila['tabla']." (";
+                $con->consulta("
+                    SELECT  attnum AS orden,attname AS nombre,typname AS tipo,atttypmod-4 AS longitud,attnotnull AS esnull,atthasdef AS haydefecto,adsrc AS defecto
                     FROM pg_attribute, pg_class, pg_type, pg_attrdef 
                     WHERE pg_class.oid=attrelid
                     AND pg_type.oid=atttypid 
@@ -73,68 +46,74 @@ $str1="";
                     AND pg_class.oid=adrelid 
                     AND adnum=attnum
                     AND atthasdef='t' 
-                    AND lower(relname)='$table' 
+                    AND lower(relname)='".$fila['tabla']."' 
                     UNION
-                    SELECT attnum,attname,typname,atttypmod-4,attnotnull,atthasdef,'' AS def
+                    SELECT attnum AS orden,attname AS nombre,typname AS tipo,atttypmod-4 AS longitud,attnotnull AS esnull,atthasdef AS haydefecto,'' AS defecto
                     FROM pg_attribute, pg_class, pg_type 
                     WHERE pg_class.oid=attrelid
                     AND pg_type.oid=atttypid 
                     AND attnum>0 
                     AND atthasdef='f' 
-                    AND lower(relname)='$table'
-                    ORDER BY attnum
+                    AND lower(relname)='".$fila['tabla']."'
+                    ORDER BY orden
                     ;
-                ");  
+                ");
                 $serial=false;
-                $nameSerial=""; 
-                $nameSerialSeq="";                                       
-                while($r = pg_fetch_row($res1)){
-                    $str1 .= "\n\t".$r[1]." ";
-                    if ($r[5]=="t"){
-                        if(strpos($r[6], "extval(")){
-                            if ($r[2]=="int4"){
-                                $str1 .= "integer";
+                $nameSerialSeq="";
+                $nameSerial="";
+                while($fila1=pg_fetch_array($con->getResultado(), null, PGSQL_ASSOC)){
+                    $infotabla.="\n\t".$fila1['nombre']." ";
+                    if ($fila1['haydefecto']=="t"){
+                        if(strpos($fila1['defecto'], "extval(")){
+                            if ($fila1['tipo']=="int4"){
+                                $infotabla.="integer";
                             }
                             else{
-                                if ($r[2]=="int8"){
-                                    $str1 .= "bigint";
+                                if ($fila1['tipo']=="int8"){
+                                    $infotabla.="bigint";
                                 }
                                 else{
-                                    $str1 .= $r[2];
+                                    $infotabla.=$fila1['tipo'];
                                 }
                             }
                             $serial=true;
-                            $nameSerial=$r[1]; 
+                            $nameSerial=$fila1['nombre'];
                         }
                     }else{
-                        if ($r[2]=="varchar"){
-                            $str1 .= "character varying(".$r[3] .")";
+                        if($fila1['tipo']=="varchar"){
+                            if($fila1['longitud']<0){
+                                $fila1['longitud']=150;
+                            }
+                            $infotabla.="character varying(".$fila1['longitud'].")";
                         }else{
-                            if ($r[2]=="float8"){
-                                $str1 .= "double precision";
+                            if ($fila1['tipo']=="float8"){
+                                $infotabla.="double precision";
                             }
                             else{
-                                if ($r[2]=="bool"){
-                                    $str1 .= "boolean";
+                                if ($fila1['tipo']=="bool"){
+                                    $infotabla.="boolean";
                                 }
                                 else{
-                                    if ($r[2]=="int4"){
-                                        $str1 .= "integer";
+                                    if ($fila1['tipo']=="int4"){
+                                        $infotabla.="integer";
                                     }
                                     else{
-                                        if ($r[2]=="time"){
-                                            $str1 .= "time without time zone";
+                                        if ($fila1['tipo']=="time"){
+                                            $infotabla.="time without time zone";
                                         }
                                         else{
-                                            if ($r[2]=="bpchar"){
-                                                $str1 .= "character(".$r[3] .")";
+                                            if ($fila1['tipo']=="bpchar"){
+                                                if($fila1['longitud']<0){
+                                                    $fila1['longitud']=150;
+                                                }
+                                                $infotabla.="character(".$fila1['longitud'].")";
                                             }
                                             else{
-                                                if ($r[2]=="int8"){
-                                                    $str1 .= "bigint";
+                                                if ($fila1['tipo']=="int8"){
+                                                    $infotabla.="bigint";
                                                 }
                                                 else{
-                                                    $str1 .= $r[2];
+                                                    $infotabla.=$fila1['tipo'];
                                                 }
                                             }
                                         }
@@ -143,110 +122,113 @@ $str1="";
                             }
                         }
                     }
-                    if ($r[4]=="t"){
-                        $str1 .= " NOT NULL";
+                    if ($fila1['esnull']=="t"){
+                        $infotabla.=" NOT NULL";
                     }
-                    if ($r[5]=="t"){
-                        $str1 .= " DEFAULT ".$r[6];
-                        $nameSerialSeq=substr($r[6],9,-12);
+                    if ($fila1['haydefecto']=="t"){
+                        $infotabla.=" DEFAULT ".$fila1['defecto'];
+                        $nameSerialSeq=substr($fila1['defecto'],9,-12);
                     }
-                    $str1 .= ",";
+                    $infotabla.=",";
                 }
-                $str1=rtrim($str1, ",");  
-                $str1 .= "\n);\n";
-
-                $res25=pg_query("SELECT MAX(".$nameSerial.") FROM ".$table.";");
-                if($r = pg_fetch_row($res25)){
-                    $start=($r[0]+1);
-                }
-                else{
-                    $start=1;
-                }
-
+                $infotabla=rtrim($infotabla,",");
+                $infotabla.="\n);\n";
+                $infosecuencia="";
+                ///////////////////////////////////////////////////////////////////ESTRUCTURA DE SECUENCIA
                 if($serial){
-                    $str .= "\n\n CREATE SEQUENCE ".$nameSerialSeq."
+                    $con->consulta("SELECT last_value FROM ".$nameSerialSeq.";");
+                    $start=1;
+                    if($fila1=pg_fetch_array($con->getResultado(), null, PGSQL_ASSOC)){
+                        $start=$fila1['last_value'];
+                    }
+                    $infosecuencia = "\n--
+-- Estrutura de secuencia ".$nameSerialSeq." para la tabla '".$fila['tabla']."'
+--
+DROP SEQUENCE IF EXISTS ".$nameSerialSeq." CASCADE;
+CREATE SEQUENCE ".$nameSerialSeq."
     START WITH ".$start."
     INCREMENT BY 1
     NO MINVALUE
     NO MAXVALUE
     CACHE 1;
-    ";
+";
+                    fwrite($salida,$infosecuencia);
+                    fwrite($salida,$infotabla);
+                    fwrite($salida,"\nALTER SEQUENCE ".$nameSerialSeq." OWNED BY ".$fila['tabla'].".".$nameSerial.";\n");
                 }
-    $str.=$str1;
-    $str1="";
-                if($serial){
-                    $str .= "\n\n ALTER SEQUENCE ".$nameSerialSeq." OWNED BY ".$table.".".$nameSerial.";";
+                else{
+                    fwrite($salida,$infotabla);
                 }
-                /////////////////////////////////////////DATOS
-                $str .= "--\n";
-                $str .= "-- Creando datos de '$table'";
-                $str .= "\n--\n";
-                $res3 = pg_query("SELECT * FROM $table");
-                while($r = pg_fetch_row($res3)){
-                    $sql = "INSERT INTO $table VALUES ('";
-                    $sql .= utf8_decode(implode("','",$r));
-                    $sql .= "');";
-                    $str = str_replace("''","NULL",$str);
-                    $str .= $sql;  
-                    $str .= "\n";
+                ///////////////////////////////////////////////////////////////////DATOS DE TABLA
+                fwrite($salida,"\n--
+-- Creando datos de '".$fila['tabla']."'
+--
+");
+                $con->consulta("SELECT * FROM ".$fila['tabla'].";");
+                while($fila1=pg_fetch_array($con->getResultado(), null, PGSQL_ASSOC)){
+                    $aux="INSERT INTO ".$fila['tabla']." VALUES('".utf8_decode(implode("','",$fila1))."');\n";
+                    fwrite($salida,str_replace("''","NULL",$aux));
                 }
-                ///////////////////////////////INDICES
-                $res2 = pg_query("
+
+
+                ////////////////////////////////////////////////////////////////////INDICES PRIMARY KEY DE TABLA
+                $con->consulta("
                     SELECT pg_index.indisprimary,pg_catalog.pg_get_indexdef(pg_index.indexrelid)
                     FROM pg_catalog.pg_class c,pg_catalog.pg_class c2,pg_catalog.pg_index AS pg_index
-                    WHERE c.relname = '$table'
+                    WHERE c.relname = '".$fila['tabla']."'
                     AND c.oid = pg_index.indrelid
                     AND pg_index.indexrelid = c2.oid
                     AND pg_index.indisprimary
                     ;
                 ");
-                while($r = pg_fetch_row($res2)){
-                    $str .= "--\n";
-                    $str .= "-- Creando indices PrimaryKey '$table'";
-                    $str .= "\n--\n";
-                    $t = str_replace("CREATE UNIQUE INDEX", "", $r[1]);
+                fwrite($salida,"--
+-- Creando indices PrimaryKey de '".$fila['tabla']."'
+--\n");
+                while($fila1=pg_fetch_array($con->getResultado(), null, PGSQL_ASSOC)){
+                    $t = str_replace("CREATE UNIQUE INDEX", "", $fila1['pg_get_indexdef']);
                     $t = str_replace("USING btree", "|", $t);
-                    // Next Line Can be improved!!!
                     $t = str_replace("ON", "|", $t);
-                    $Temparray = explode("|", $t);
-                    $str .= "ALTER TABLE ONLY ".$Temparray[1]." ADD CONSTRAINT ".$Temparray[0]." PRIMARY KEY ".$Temparray[2].";\n";
+                    $temp = explode("|", $t);
+                    fwrite($salida,"ALTER TABLE ONLY ".$temp[1]." ADD CONSTRAINT ".$temp[0]." PRIMARY KEY ".$temp[2].";\n");
                 } 
-                ///////////////////////////////UNIQUES
-                $res3 = pg_query("
+                ////////////////////////////////////////////////////////////////////INDICES UNIQUES DE TABLA
+                $con->consulta("
                     select pco.conname as restriccion,pat.attname as columna
                     from pg_constraint pco
                     join pg_class pcl on (pco.conrelid = pcl.oid)
                     join pg_attribute pat on (pat.attrelid = pco.conindid)
                     where pco.contype = 'u'
-                    and pcl.relname = '$table'
+                    and pcl.relname = '".$fila['tabla']."'
                     ;
                 ");
-                $str .= "--\n";
-                $str .= "-- Creando indices Unique '$table'";
-                $str .= "\n--\n";
+                fwrite($salida,"--\n
+-- Creando indices Unique de '".$fila['tabla']."'
+--\n");
                 $fk="";
                 $campos="";
-                while($r = pg_fetch_row($res3)){
-                    if($fk!=$r[0]){
+                while($fila1=pg_fetch_array($con->getResultado(), null, PGSQL_ASSOC)){
+                    if($fk!=$fila1['restriccion']){
                         if($campos!=""){
-                            $str .= "ALTER TABLE ONLY ".$table." ADD CONSTRAINT ".$fk." UNIQUE (".$campos.");";
-                            $fk=$r[0];
-                            $campos=$r[1];
+                            fwrite($salida,"ALTER TABLE ONLY ".$fila['tabla']." ADD CONSTRAINT ".$fk." UNIQUE (".$campos.");");
+
+                            $fk=$fila1['restriccion'];
+                            $campos=$fila1['columna'];
                         }else{
-                            $fk=$r[0];
-                            $campos=$r[1];
+                            $fk=$fila1['restriccion'];
+                            $campos=$fila1['columna'];
                         }
                     }else{
-                        $campos.=",".$r[1];
+                        $campos.=",".$fila1['columna'];
                     }
-                } 
-                if($campos!=""){
-                    $str .= "ALTER TABLE ONLY ".$table." ADD CONSTRAINT ".$fk." UNIQUE (".$campos.");";
                 }
-                $str .= "\n\n";
+                if($campos!=""){
+                    fwrite($salida,"ALTER TABLE ONLY ".$fila['tabla']." ADD CONSTRAINT ".$fk." UNIQUE (".$campos.");");
+                }
+                fwrite($salida,"\n\n");
             }
-            $res4 = pg_query(" 
-                SELECT cl.relname AS tabela,ct.conname,pg_get_constraintdef(ct.oid)
+            /////////////////////////////////////////////////////////////////////////RELACIONES DE LAS TABLAS
+            $con->consulta("
+                SELECT cl.relname AS tabla,ct.conname,pg_get_constraintdef(ct.oid)
                 FROM pg_catalog.pg_attribute a
                 JOIN pg_catalog.pg_class cl ON (a.attrelid = cl.oid AND cl.relkind = 'r')
                 JOIN pg_catalog.pg_namespace n ON (n.oid = cl.relnamespace)
@@ -256,18 +238,35 @@ $str1="";
                 JOIN pg_catalog.pg_attribute af ON (af.attrelid = ct.confrelid AND af.attnum = ct.confkey[1]) order by cl.relname
                 ;
             ");
-            while($row = pg_fetch_row($res4)){
-                $str .= "\n\n--\n";
-                $str .= "-- Creating relacionships for '".$row[0]."'";
-                $str .= "\n--\n\n";
-                $str .= "ALTER TABLE ONLY ".$row[0]." ADD CONSTRAINT ".$row[1]." ".$row[2].";";
-            }       
-
-            fwrite($back,$str0.$str);
-            fclose($back);
-            //dl_file($dbname);
-            echo $dbname;
-            //echo "Revise su carpeta de descargas";
+            while($fila1=pg_fetch_array($con->getResultado(), null, PGSQL_ASSOC)){
+                fwrite($salida,"\n\n--
+-- Creando relaciones para '".$fila1['tabla']."'
+--\n\n");
+                fwrite($salida,"ALTER TABLE ONLY ".$fila1['tabla']." ADD CONSTRAINT ".$fila1['conname']." ".$fila1['pg_get_constraintdef'].";");
+            }
+            fclose($salida);
+            echo $backupname;
+            break;
+        case 'Import':
+            if(empty($_FILES['respaldo'])){
+                echo json_encode(['error'=>'No hay archivo para restaurar.']); 
+            }
+            $fichero = $_FILES["respaldo"]["tmp_name"];
+            $entrada = fopen($fichero,"r");
+            $contenido = fread($entrada, filesize($fichero));
+            $con->consulta("BEGIN");
+            $con->consulta(utf8_encode($contenido));
+            fclose($entrada);
+            if($con->getResultado()){             
+                $con->consulta("COMMIT");
+                echo json_encode(['uploaded' => "Restauracion realizada con exito."]);
+            }
+            else{
+                $con->consulta("ROLLBACK");
+                echo json_encode(['error'=>'Error, la restauracion fallo, no se guardara ningun cambio.']);
+            }
             break;
     }
+    $con->limpiarConsulta();
+    $con->desconectar();
 ?>
