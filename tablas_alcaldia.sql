@@ -326,3 +326,11 @@ create table se_usuario(
 	niv varchar(13),
 	act boolean
 );
+
+CREATE TABLE se_bitacora (
+	cod bigint serial primary key,
+	accion character varying(200) NOT NULL,
+	id_usuario integer NOT NULL,
+	fecha date NOT NULL,
+	hora time without time zone NOT NULL
+);
