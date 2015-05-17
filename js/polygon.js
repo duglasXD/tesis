@@ -42,7 +42,7 @@
 		//draw function
 		this.draw = function(latLng){
 			if (null != this.polygon) {//Limita a la existencia de un solo poligono en el mapa
-				alert('Click Reset to draw another');
+				//alert('Click Reset to draw another');
 			}else {
 				if (this.currentDot != null && this.listOfDots.length > 1 && this.currentDot == this.listOfDots[0]) {
 					this.drawPloygon(this.listOfDots);

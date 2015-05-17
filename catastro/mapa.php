@@ -4,7 +4,7 @@
 	html { height: 100% }
 	body { height: 100%; margin: 0; padding: 0 }
 	div#mapa{ height: 100%; width:70%;float: left; }
-	div#menu{height: 100%; width:30%;float: left;}
+	div#acordion{height: 100%; width:30%;float: left;}
 </style>
 <head>
 	<link rel="stylesheet" href="./../css/bootstrap.css">
@@ -18,65 +18,60 @@
 <body>
 	<div id="mapa"></div>
 	<div id="menu">
-		<div class="accordion" id="accordion2">
+		<div class="accordion" id="acordion">
 		  <div class="accordion-group">
 		    <div class="accordion-heading">
-		      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#c1">
-		        Zonas
-		      </a>
+		      <a class="accordion-toggle" data-toggle="collapse" data-parent="#acordion" href="#c1">Zonas</a>
 		    </div>
 		    <div id="c1" class="accordion-body collapse">
 		      <div class="accordion-inner">
-		      	<a class="btn" href="#" onclick="addP()">Agregar</a>
-		      	<a class="btn" href="#" onclick="remP()">Eliminar</a>
+		      	<a class="btn" href="#" onclick="addP()"><i class="icon-file"></i> Agregar</a>
+		      	<a class="btn" href="#"><i class="icon-refresh"></i> Modificar</a>
+		      	<!-- <a class="btn" href="#" onclick="remP()">Eliminar</a> -->
 		      </div>
 		    </div>
 		  </div>
 		  <div class="accordion-group">
 		    <div class="accordion-heading">
-		      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#c2">
-		        Negocios
-		      </a>
+		      <a class="accordion-toggle" data-toggle="collapse" data-parent="#acordion" href="#c2">Negocios</a>
 		    </div>
 		    <div id="c2" class="accordion-body collapse">
 		      <div class="accordion-inner">
-		        Agregar,Modificar
+		        <a class="btn" href="#" onclick="addN()"><i class="icon-file"></i> Agregar</a>		      	
+		        <a class="btn" href="#" onclick="verN()"><i class="icon-search"></i> Contribuyentes morosos</a>
 		      </div>
 		    </div>
 		  </div>
 		  <div class="accordion-group">
 		    <div class="accordion-heading">
-		      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#c3">
-		        Inmuebles
-		      </a>
+		      <a class="accordion-toggle" data-toggle="collapse" data-parent="#acordion" href="#c3">Inmuebles</a>
 		    </div>
 		    <div id="c3" class="accordion-body collapse">
 		      <div class="accordion-inner">
-		        Agregar,Modificar
+		        <a class="btn" href="#" onclick="addI()"><i class="icon-file"></i> Agregar</a>
+		        <a class="btn" href="#" onclick="verI()"><i class="icon-search"></i> Contribuyentes morosos</a>
 		      </div>
 		    </div>
 		  </div>
 		  <div class="accordion-group">
 		    <div class="accordion-heading">
-		      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#c4">
-		        Calles
-		      </a>
+		      <a class="accordion-toggle" data-toggle="collapse" data-parent="#acordion" href="#c4">Calles</a>
 		    </div>
 		    <div id="c4" class="accordion-body collapse">
 		      <div class="accordion-inner">
-		        Agregar,Modificar
+		        <a class="btn" href="#" onclick="addC()"><i class="icon-file"></i> Agregar</a>
+		      	<a class="btn" href="#" onclick="verC()"><i class="icon-search"></i> Ver estado</a>
 		      </div>
 		    </div>
 		  </div>
 		  <div class="accordion-group">
 		    <div class="accordion-heading">
-		      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#c5">
-		        Lamparas
-		      </a>
+		      <a class="accordion-toggle" data-toggle="collapse" data-parent="#acordion" href="#c5">Lámparas</a>
 		    </div>
 		    <div id="c5" class="accordion-body collapse">
 		      <div class="accordion-inner">
-		        Agregar,Modificar
+		        <a class="btn" href="#" onclick="addL()"><i class="icon-file"></i> Agregar</a>
+		      	<a class="btn" href="#" onclick="verL"><i class="icon-search"></i> Ver Estado</a>
 		      </div>
 		    </div>
 		  </div>

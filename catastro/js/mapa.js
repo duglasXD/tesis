@@ -2,7 +2,6 @@ var map="";
 var creator ="";
 $(function(){//funcion que se ejecuta aL cargar el DOM
   cargarMapa();
-
 });
 
 function cargarMapa() {
@@ -12,19 +11,10 @@ function cargarMapa() {
 		zoom: 16,
     mapTypeId: google.maps.MapTypeId.SATELLITE
 	};
-	map = new google.maps.Map(document.getElementById("mapa"),mapOptions);
-    
-  //EVENTO CLICK
-  google.maps.event.addListener(map,'click',function(e){
-    //poner marcador
-    ponerMarcador(e.latLng,map);
-    
-  });
-  
+	map = new google.maps.Map(document.getElementById("mapa"),mapOptions);  
 }
 
-function ponerMarcador(position,map){
-  var icono="../img/icon-neg.png";
+function ponerMarcador(position,map,icono){
   var marker = new google.maps.Marker({
     position: position,
     map: map,
@@ -36,6 +26,25 @@ function ponerMarcador(position,map){
 function addP(){
   creator = new PolygonCreator(map);
 }
+function addN(){
+  var icono="../img/icon-neg.png";
+  google.maps.event.addListener(map,'click',function(e){
+    ponerMarcador(e.latLng,map,icono);
+  });
+}
+function addI(){
+  var icono="../img/icon-home.png";
+  google.maps.event.addListener(map,'click',function(e){
+    ponerMarcador(e.latLng,map,icono);
+  });
+}
+function addL(){
+  var icono="../img/lamp-ok.png";
+  google.maps.event.addListener(map,'click',function(e){
+    ponerMarcador(e.latLng,map,icono);
+  });
+}
+
 function remP(){
-  creator.destroy();
+  creator.destroy();//destruye todos los poligonos
 }
