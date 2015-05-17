@@ -14,11 +14,11 @@
 					echo "exito-".$fila['niv'];
 				}
 				else{
-					echo "Error2: Usuario o contraseña invalidos, por favor verifique. ";
+					echo "Error: Usuario o contraseña invalidos, por favor verifique. ";
 				}
 			}
 			else{
-				echo "Error1: Usuario o contraseña invalidos, por favor verifique.";
+				echo "Error: Usuario o contraseña invalidos, por favor verifique.";
 			}
 			break;
 		case 'registrar':

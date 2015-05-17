@@ -87,7 +87,8 @@
 	                		}
 	                	}
 	                	else{
-	                		document.getElementById('avisos').innerHTML=xmlhttp.responseText;
+	                		//document.getElementById('avisos').innerHTML=xmlhttp.responseText;
+	                		alert(xmlhttp.responseText);
 	                	}
 	                }
 	            }
