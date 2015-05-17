@@ -1,6 +1,6 @@
 <?php
 	session_start();
-	include ("../php/conexion.php");
+	include ("conexion.php");
 	$conn=conectar();
 	switch($_REQUEST['caso']){
 		case 'identificar':
