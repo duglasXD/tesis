@@ -29,6 +29,7 @@ $(function(){
 				alert("existen campos vacios");	
 		}
 		else{
+			if(validarEmail($("#cor").val()) ){
 ///////////////////////////////////////////////////////////////////////////////////////
 			
 				$.ajax
@@ -58,6 +59,7 @@ $(function(){
 				});
 			
 ///////////////////////////////////////////////////////////////////////////////////////			
+			}
 		}
 	});
 
@@ -87,4 +89,19 @@ function cargaDatos(cod){
 			}
 		}
 	});
+}
+
+function validarEmail( email ) {
+	//alert("email="+email);
+	var bandera= false;
+    expr = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    if ( !expr.test(email) ){
+        alert("Error: La dirección de correo " + email + " es incorrecta.");
+    	bandera= false;
+    }
+    else{
+    	//alert("correo exitoso");
+    	bandera=true;
+	}
+	return bandera;
 }
